@@ -109,28 +109,7 @@ def write(x, img,result):
 
 #求距离
 def distance_Car_Person( uf, vf, height, width):   # uf,vf分别对应矩形中心点center的坐标
-	# 相机内参
-
-    # a = 105*3.1415926/180   # sin30°就得写成 Math.sin（30*Math.PI/180）
-    # h = 150   #镜头中心到地面的高度
-    # ax = 3507.703240769799  #相机内参 f/dx
-    # ay = 3506.889066124179  #相机内参 f/dy
-    #
-    # uo = int(width/2)  #uo，vo  成像平面坐标系的原点在像素坐标系中的像素坐标
-    # vo = int(height/2)
-    #
-    # e = (vo - vf) / ay
-    # b = math.atan(e)
-    # d = h / (math.tan(a + b))
-    # up = (h*h + d*d)*(uf - uo)*(uf - uo)
-    # down = (vf - vo)*(vf - vo)*(ax / ay)*(ax / ay) + ax*ax
-    # left = up / down
-    # l = int(math.sqrt(left + d*d))
-    # return l
-
-    print(width,"     ",height)
-    # return int(math.sqrt((int(width/2) - uf)*(int(width/2) - uf)+(height - vf)*(height - vf)))
-    return height - vf
+    return (height - vf)//10
 
 
 
@@ -148,11 +127,11 @@ def func(orig_im,distance,bottom_center,id_num,safe_distance,lt, rb,cT,height):
         last_bottom_center_4 = (int(last_row_bottom_values[3][3]), int(last_row_bottom_values[3][4]))
         last_bottom_center_5 = (int(last_row_bottom_values[4][3]), int(last_row_bottom_values[4][4]))
 
-        cv2.circle(orig_im, last_bottom_center_1, 2, (0, 100, 255), 3, -1)  # 画点
-        cv2.circle(orig_im, last_bottom_center_2, 2, (0, 100, 255), 3, -1)
-        cv2.circle(orig_im, last_bottom_center_3, 2, (0, 100, 255), 3, -1)
-        cv2.circle(orig_im, last_bottom_center_4, 2, (0, 100, 255), 3, -1)
-        cv2.circle(orig_im, last_bottom_center_5, 3, (0, 100, 255), 3, -1)
+        cv2.circle(orig_im, last_bottom_center_1, 2, (0, 255, 255), 3, -1)  # 画点
+        cv2.circle(orig_im, last_bottom_center_2, 2, (0, 255, 255), 3, -1)
+        cv2.circle(orig_im, last_bottom_center_3, 2, (0, 255, 255), 3, -1)
+        cv2.circle(orig_im, last_bottom_center_4, 2, (0, 255, 255), 3, -1)
+        cv2.circle(orig_im, last_bottom_center_5, 3, (0, 255, 255), 3, -1)
 
     ####                df[df['track_id'].isin([id_num])]      tail(1)最后一行      values查看数据值
     row_bottom_values = df[df['track_id'].isin([id_num])].tail(1).values
@@ -162,13 +141,13 @@ def func(orig_im,distance,bottom_center,id_num,safe_distance,lt, rb,cT,height):
             # print(last_dist)
             if (last_dist > distance):  # 判断距离变近,则预警
                 cv2.rectangle(orig_im, lt, rb, (0, 0, 255), 2)
-                cv2.putText(orig_im, "!", cT, 0, 1e-3 * height * 2, (0, 0, 255), 2)
+                cv2.putText(orig_im, "!", cT, cv2.FONT_ITALIC, 0.6, (0, 0, 255), 2)
 
         #else:
             #print("NAN")
 
     #####
-    cv2.putText(orig_im, str(distance), bottom_center, 0, 1e-3 * height, (0, 0, 255), 2)  # 画上距离
+    cv2.putText(orig_im, str(distance)+"cm", bottom_center, cv2.FONT_ITALIC, 0.6, (0, 0, 255), 2)  # 画上距离
 
 
 # 全局变量
@@ -192,7 +171,7 @@ def track_fun(result,mot_tracker,orig_im,frame_id):
         rty = int(track[3])
         # track_id
         trackID = int(track[4])
-        cv2.putText(orig_im, str(trackID), (lrx,lry), cv2.FONT_ITALIC, 0.6, (0, 100, 255),2)
+        cv2.putText(orig_im, "TID:" + str(trackID), (lrx,lry), cv2.FONT_ITALIC, 0.6, (255, 100, 0),2)
         cv2.rectangle(orig_im,(lrx,lry),(rtx,rty),(0, 255, 0),2)
         id_num = str(trackID)  # track.track_id是跟踪的目标标号id
 
