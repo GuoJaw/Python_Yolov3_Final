@@ -16,7 +16,7 @@ import argparse
 
 def get_test_input(input_dim, CUDA):
     img = cv2.imread("dog-cycle-car.png")
-    img = cv2.resize(img, (input_dim, input_dim)) 
+    img = cv2.resize(img, (input_dim, input_dim))
     img_ =  img[:,:,::-1].transpose((2,0,1))
     img_ = img_[np.newaxis,:,:,:]/255.0
     img_ = torch.from_numpy(img_).float()
@@ -59,13 +59,11 @@ def arg_parse():
     Parse arguements to the detect module
     
     """
-    
-    
     parser = argparse.ArgumentParser(description='YOLO v3 Video Detection Module')
    
     parser.add_argument("--video", dest = 'video', help = 
                         "Video to run detection upon",
-                        default = "video.avi", type = str)
+                        default = "kitti1.avi", type = str)
     parser.add_argument("--dataset", dest = "dataset", help = "Dataset on which the network has been trained", default = "pascal")
     parser.add_argument("--confidence", dest = "confidence", help = "Object Confidence to filter predictions", default = 0.5)
     parser.add_argument("--nms_thresh", dest = "nms_thresh", help = "NMS Threshhold", default = 0.4)
@@ -74,7 +72,7 @@ def arg_parse():
                         default = "cfg/yolov3.cfg", type = str)
     parser.add_argument("--weights", dest = 'weightsfile', help = 
                         "weightsfile",
-                        default = "yolov3.weights", type = str)
+                        default = "cfg/yolov3.weights", type = str)
     parser.add_argument("--reso", dest = 'reso', help = 
                         "Input resolution of the network. Increase to increase accuracy. Decrease to increase speed",
                         default = "416", type = str)
@@ -147,16 +145,13 @@ if __name__ == '__main__':
                 if key & 0xFF == ord('q'):
                     break
                 continue
-            
-            
 
-            
-        
             output[:,1:5] = torch.clamp(output[:,1:5], 0.0, float(inp_dim))
             
             im_dim = im_dim.repeat(output.size(0), 1)/inp_dim
             output[:,1:5] *= im_dim
             
+            # classes = load_classes('kitti/kitti.names') ##classes = load_classes('data/coco.names')
             classes = load_classes('data/coco.names')
             colors = pkl.load(open("pallete", "rb"))
             
@@ -177,4 +172,5 @@ if __name__ == '__main__':
 
     
     
+
 
