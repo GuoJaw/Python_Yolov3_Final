@@ -22,11 +22,7 @@ conda/pip安装pytorch 0.3.1教程(mac/windos/linux) : https://ptorch.com/news/1
 
 采用了《检测》+《跟踪》+《单目测距》等技术，实现了 “ADAS 辅助驾驶系统” 。
 
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/c1.png]
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/c1.png]
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/1.png]
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/2.png]
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/4.png]
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/44.png]
-![https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/55.png]
+
+
+![Image text](https://github.com/GuoJaw/Python_Yolov3_Final/tree/master/demo_image/c1.png)
 
